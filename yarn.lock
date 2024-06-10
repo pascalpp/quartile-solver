@@ -1250,10 +1250,20 @@ is-stream@^3.0.0:
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-3.0.0.tgz#e6bfd7aa6bef69f4f472ce9bb681e3e57b4319ac"
   integrity sha512-LnQR4bZ9IADDRSkvpqMGvt/tEJWclzklNgSw48V5EAaAeDd6qGvN8ei6k5p0tvxSR171VmGyHuTiAOfxAbr8kA==
 
+is-word@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/is-word/-/is-word-1.0.4.tgz#be60141c8d93d67cc1ae341a650142ced12ba367"
+  integrity sha512-AKiRceZqb0c8o028B72FoF2/HesPHsMxFQu/pDRaKGTBU/rCF/CnSd9D55H2nvJkPab+xs98iPexI/PwiFerlw==
+
 isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
+
+js-combinatorics@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/js-combinatorics/-/js-combinatorics-2.1.2.tgz#1434bce70c6e3b46f01c6b214626e95ff7905f81"
+  integrity sha512-/1AY2bYwxajoaKjPzvgQ80U7lcucU71ubzFPVgZGmzbDGn3R18ZQUZfD69+4Idg4JfNcq6trwD6I+dRfVnr/tg==
 
 js-tokens@^9.0.0:
   version "9.0.0"
