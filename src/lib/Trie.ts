@@ -7,25 +7,25 @@ export class Trie {
   root = new TrieNode();
 
   insert(word: string) {
-    let temp = this.root;
+    let node = this.root;
     for (let i = 0; i < word.length; ++i) {
-      if (temp.children[word[i]]) {
-        temp = temp.children[word[i]];
+      if (node.children[word[i]]) {
+        node = node.children[word[i]];
       } else {
-        temp.children[word[i]] = new TrieNode();
-        temp = temp.children[word[i]];
+        node.children[word[i]] = new TrieNode();
+        node = node.children[word[i]];
       }
     }
-    temp.end = true;
+    node.end = true;
   }
 
   check(word: string) {
     if (this.root == null) return false;
-    let temp = this.root;
+    let node = this.root;
     for (let i = 0; i < word.length; ++i) {
-      if (!temp.children[word[i]]) return false;
-      temp = temp.children[word[i]];
+      if (!node.children[word[i]]) return false;
+      node = node.children[word[i]];
     }
-    return temp.end === true;
+    return node.end === true;
   }
 }
