@@ -10,11 +10,8 @@ declare global {
   }
 }
 
+const dictionaryWords = dictionary.toLowerCase().split('\n');
 const trie = new Trie();
-dictionary
-  .toLowerCase()
-  .split('\n')
-  .forEach(word => trie.insert(word));
 
 if (browser) {
   window.Trie = Trie;
@@ -25,8 +22,14 @@ export function wordExists(word: string): boolean {
   return trie.check(word);
 }
 
+export function wordExistsSlow(word: string): boolean {
+  return dictionaryWords.includes(word);
+}
+
 export function findWords(tokens: string[]): string[] {
-  return findCombinations(tokens).filter(wordExists).sort();
+  const combinations = findCombinations(tokens);
+  const words = combinations.filter(wordExists).sort();
+  return words;
 }
 
 export function findCombinations(tokens: string[]): string[] {
