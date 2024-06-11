@@ -1,8 +1,8 @@
 import { browser } from '$app/environment';
 
 export class LocalStore<T> {
-  value = $state<T>() as T;
   key = '';
+  value = $state<T>() as T;
 
   constructor(key: string, value: T) {
     this.key = key;
@@ -14,6 +14,7 @@ export class LocalStore<T> {
     }
 
     $effect(() => {
+      console.log('storing');
       localStorage.setItem(this.key, this.serialize(this.value));
     });
   }

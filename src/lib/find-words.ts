@@ -12,6 +12,7 @@ declare global {
 
 const dictionaryWords = dictionary.toLowerCase().split('\n');
 const trie = new Trie();
+dictionaryWords.forEach(word => trie.insert(word));
 
 if (browser) {
   window.Trie = Trie;
@@ -26,9 +27,12 @@ export function wordExistsSlow(word: string): boolean {
   return dictionaryWords.includes(word);
 }
 
-export function findWords(tokens: string[]): string[] {
+export function findWords(tokens: string[] = []): string[] {
+  console.log('Finding words for:', tokens);
   const combinations = findCombinations(tokens);
+  console.log('Combinations:', combinations);
   const words = combinations.filter(wordExists).sort();
+  console.log('Words:', words);
   return words;
 }
 
