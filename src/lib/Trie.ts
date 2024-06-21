@@ -6,6 +6,18 @@ class TrieNode {
 export class Trie {
   root = new TrieNode();
 
+  constructor(words?: string[] | string) {
+    this.insertAll(words);
+  }
+
+  insertAll(words?: string[] | string) {
+    let list = words || [];
+    if (typeof list === 'string') {
+      list = list.split('\n');
+    }
+    list.forEach(word => this.insert(word));
+  }
+
   insert(word: string) {
     let node = this.root;
     for (let i = 0; i < word.length; ++i) {

@@ -3,6 +3,7 @@
   "tabWidth": 2,
   "singleQuote": true,
   "trailingComma": "none",
+  "htmlWhitespaceSensitivity": "strict",
   "printWidth": 100,
   "arrowParens": "avoid",
   "plugins": ["prettier-plugin-svelte"],
