@@ -38,11 +38,6 @@
   function save(set: string[] = emtpyTokens) {
     sets.value[currentDate] = set;
   }
-
-  const collinsWords = collinsDictionary.split('\n');
-  const onlyInCollins = $derived(collinsWords.filter(word => !american.checkWord(word)));
-  $inspect(onlyInCollins);
-  const onlyInCollinsDictionary = $derived(new Dictionary(onlyInCollins.join('\n')));
 </script>
 
 <svelte:head>
@@ -83,13 +78,7 @@
   {/if}
 
   <div class="button-bar">
-    <button onclick={() => (dictionary = american)} disabled={dictionary === american}>
-      American
-    </button>
-    <button
-      onclick={() => (dictionary = onlyInCollinsDictionary)}
-      disabled={dictionary === onlyInCollinsDictionary}
-    >
+    <button onclick={() => (dictionary = collins)} disabled={dictionary === collins}>
       Collins
     </button>
     <button onclick={() => (dictionary = sowpods)} disabled={dictionary === sowpods}>
