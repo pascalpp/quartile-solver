@@ -1,14 +1,13 @@
 <script lang="ts">
-  import { getSpellingBeeWords } from './getSpellingBeeWords';
+  import { Dictionary, getSpellingBeeWords } from './getSpellingBeeWords';
   import SpellingBeeInput from './SpellingBeeInput.svelte';
 
   const title = 'Spelling Bee Solver';
 
   let letters = $state(''.toUpperCase());
+  let dictionary = $state(Dictionary.collins);
 
-  let words = $derived(getSpellingBeeWords(letters));
-
-  $inspect(words);
+  let words = $derived(getSpellingBeeWords(letters, dictionary));
 </script>
 
 <svelte:head>
@@ -29,10 +28,14 @@
 <main>
   <h1>{title}</h1>
 
+  <p class="note">
+    Enter the letters from <span class="nowrap">Spelling Bee</span> to find matching words.</p
+  >
+
   <SpellingBeeInput bind:letters />
 
   <h2>{letters}</h2>
-  {#if words.pangrams.length > 0}
+  {#if words && words.pangrams.length > 0}
     <details>
       <summary>Pangrams: {words.pangrams.length}</summary>
       <div class="words">
@@ -43,7 +46,7 @@
     </details>
   {/if}
 
-  {#if words.other.length > 0}
+  {#if words && words.other.length > 0}
     <details>
       <summary>Other matches: {words.other.length}</summary>
       <div class="words">
@@ -53,6 +56,35 @@
       </div>
     </details>
   {/if}
+
+  <p class="note">
+    The official <span class="nowrap">Spelling Bee</span> dictionary is not publicly available, so this
+    solver may return matches that are not accepted by the game.
+  </p>
+
+  <div class="button-bar">
+    <button
+      onclick={() => (dictionary = Dictionary.collins)}
+      disabled={dictionary === Dictionary.collins}
+    >
+      Collins
+    </button>
+    <button
+      onclick={() => (dictionary = Dictionary.sowpods)}
+      disabled={dictionary === Dictionary.sowpods}
+    >
+      SowPods
+    </button>
+    <button onclick={() => (dictionary = Dictionary.twl)} disabled={dictionary === Dictionary.twl}>
+      TWL
+    </button>
+    <button
+      onclick={() => (dictionary = Dictionary.american)}
+      disabled={dictionary === Dictionary.american}
+    >
+      American
+    </button>
+  </div>
 </main>
 
 <style>
@@ -68,6 +100,10 @@
     margin: 0;
   }
 
+  details {
+    text-align: center;
+  }
+
   summary {
     font-weight: bold;
     margin: 0;
@@ -79,15 +115,30 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 1rem;
-    max-width: 600px;
+    width: clamp(200px, 95vw, 600px);
+  }
+
+  .note {
+    max-width: 40ch;
+    font-style: italic;
+    font-family: serif;
+    text-align: center;
+    text-wrap: balance;
+    font-size: 1.2em;
+  }
+
+  .nowrap {
+    white-space: nowrap;
   }
 
   button {
     font: inherit;
-    border: 1px solid rgb(0 0 0 / 0.5);
+    border: 1px solid rgb(0 0 0 / 0.3);
     border-radius: 5px;
-    background-color: #eee;
+    background-color: #f3f3f3;
     padding: 0.333em 1em;
     height: auto;
     font-weight: bold;
