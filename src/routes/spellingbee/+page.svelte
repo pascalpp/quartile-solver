@@ -1,7 +1,14 @@
 <script lang="ts">
+  import { getSpellingBeeWords } from './getSpellingBeeWords';
   import SpellingBeeInput from './SpellingBeeInput.svelte';
 
   const title = 'Spelling Bee Solver';
+
+  let letters = $state(''.toUpperCase());
+
+  let words = $derived(getSpellingBeeWords(letters));
+
+  $inspect(words);
 </script>
 
 <svelte:head>
@@ -22,13 +29,30 @@
 <main>
   <h1>{title}</h1>
 
-  <!-- <datalist id="names">
-    {#each names as name}
-      <option value={name}>{name}</option>
-    {/each}
-  </datalist> -->
+  <SpellingBeeInput bind:letters />
 
-  <SpellingBeeInput letters="olhbint" />
+  <h2>{letters}</h2>
+  {#if words.pangrams.length > 0}
+    <details>
+      <summary>Pangrams: {words.pangrams.length}</summary>
+      <div class="words">
+        {#each words.pangrams as word}
+          <div>{word}</div>
+        {/each}
+      </div>
+    </details>
+  {/if}
+
+  {#if words.other.length > 0}
+    <details>
+      <summary>Other matches: {words.other.length}</summary>
+      <div class="words">
+        {#each words.other as word}
+          <div>{word}</div>
+        {/each}
+      </div>
+    </details>
+  {/if}
 </main>
 
 <style>
@@ -37,7 +61,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
   }
 
   h1 {

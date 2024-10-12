@@ -1,19 +1,19 @@
 <script lang="ts">
   interface SpellingBeeInputProps {
-    letters?: string;
+    letters: string;
   }
 
-  let { letters = '' }: SpellingBeeInputProps = $props();
+  let { letters = $bindable() }: SpellingBeeInputProps = $props();
 
-  const slots = new Array(7).fill('').map((_, i) => letters[i].toUpperCase() || '');
+  const slots = new Array(7).fill('').map((_, i) => letters[i]?.toUpperCase() ?? '');
 
   function handleInput(input: HTMLInputElement, index: number) {
-    const onInput = (event: Event) => {
+    const onInput = () => {
       input.value = input.value.replace(/[^a-z]/g, '').toUpperCase();
-      // tokens[index] = input.value;
+      letters = [...letters.slice(0, index), input.value, ...letters.slice(index + 1)].join('');
     };
     const onBlur = () => {
-      // tokens[index] = input.value;
+      letters = [...letters.slice(0, index), input.value, ...letters.slice(index + 1)].join('');
     };
 
     input.addEventListener('input', onInput);
@@ -30,6 +30,7 @@
 <div class="tokens">
   {#each slots as letter, index}
     <div class="token">
+      <!-- svelte-ignore a11y_autofocus -->
       <input
         type="text"
         maxlength="1"
@@ -39,6 +40,7 @@
         autocorrect="off"
         autocapitalize="off"
         autocomplete="off"
+        autofocus={!letter}
       />
     </div>
   {/each}
@@ -46,7 +48,7 @@
 
 <style>
   .tokens {
-    --gridsize: 300px;
+    --gridsize: 200px;
     --center: calc(var(--gridsize) / 2);
     --size: 70px;
     --margin: 6px;
@@ -55,6 +57,7 @@
     position: relative;
     width: var(--gridsize);
     height: var(--gridsize);
+    margin-top: 2rem;
   }
 
   .token {
@@ -78,6 +81,7 @@
       text-align: center;
       font-weight: bold;
       font-size: calc(var(--size) / 2.6);
+      outline: none;
     }
 
     &::before {
