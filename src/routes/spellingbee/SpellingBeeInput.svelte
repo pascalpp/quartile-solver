@@ -34,7 +34,6 @@
       <input
         type="text"
         maxlength="1"
-        size="1"
         value={letter}
         use:handleInput={index}
         autocorrect="off"
@@ -82,6 +81,7 @@
       font-weight: bold;
       font-size: calc(var(--size) / 2.6);
       outline: none;
+      width: 100%;
     }
 
     &::before {
