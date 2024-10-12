@@ -10,7 +10,9 @@
   function handleInput(input: HTMLInputElement, index: number) {
     const onInput = () => {
       input.value = input.value.replace(/[^a-z]/g, '').toUpperCase();
+      if (input.value.length !== 1) return;
       letters = [...letters.slice(0, index), input.value, ...letters.slice(index + 1)].join('');
+      input.closest('.token')?.nextElementSibling?.querySelector('input')?.focus();
     };
     const onBlur = () => {
       letters = [...letters.slice(0, index), input.value, ...letters.slice(index + 1)].join('');
@@ -56,7 +58,7 @@
     position: relative;
     width: var(--gridsize);
     height: var(--gridsize);
-    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 
   .token {
