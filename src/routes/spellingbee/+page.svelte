@@ -34,7 +34,6 @@
 
   <SpellingBeeInput bind:letters />
 
-  <h2>{letters}</h2>
   {#if words && words.pangrams.length > 0}
     <details>
       <summary>Pangrams: {words.pangrams.length}</summary>
